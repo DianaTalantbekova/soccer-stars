@@ -41,6 +41,7 @@ class StoreScreen extends StatelessWidget {
         _buildCard(
           asset: '?',
           title: 'random',
+          count: 5,
           description: 'Opens random letter',
           buttonText: '$coin coins',
         ),
@@ -65,8 +66,9 @@ class StoreScreen extends StatelessWidget {
   Widget _buildCard({
     required String asset,
     required String title,
-    required description,
-    required buttonText,
+    required String description,
+    required String buttonText,
+    int count = 0,
   }) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -85,9 +87,16 @@ class StoreScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title.toUpperCase(),
-                style: TextStyleHelper.helper7,
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: title.toUpperCase(),
+                      style: TextStyleHelper.helper7,
+                    ),
+                    if (count != 0) TextSpan(text: "-${count.toString()}"),
+                  ],
+                ),
               ),
               Text(
                 description,

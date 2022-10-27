@@ -1,38 +1,38 @@
 class Player {
- final int id;
- final String name;
- final String fullName;
- final String asset;
+  final int id;
+  final String name;
+  final String lastName;
+  final String asset;
 
 //<editor-fold desc="Data Methods">
 
- const Player({
+  const Player({
     required this.id,
     required this.name,
-    required this.fullName,
+    required this.lastName,
     required this.asset,
   });
 
- @override
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Player &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           name == other.name &&
-          fullName == other.fullName &&
+          lastName == other.lastName &&
           asset == other.asset);
 
- @override
+  @override
   int get hashCode =>
-      id.hashCode ^ name.hashCode ^ fullName.hashCode ^ asset.hashCode;
+      id.hashCode ^ name.hashCode ^ lastName.hashCode ^ asset.hashCode;
 
- @override
+  @override
   String toString() {
-    return 'Player{ id: $id, name: $name, fullName: $fullName, asset: $asset,}';
+    return 'Player{ id: $id, name: $name, fullName: $lastName, asset: $asset,}';
   }
 
- Player copyWith({
+  Player copyWith({
     int? id,
     String? name,
     String? fullName,
@@ -41,16 +41,16 @@ class Player {
     return Player(
       id: id ?? this.id,
       name: name ?? this.name,
-      fullName: fullName ?? this.fullName,
+      lastName: fullName ?? this.lastName,
       asset: asset ?? this.asset,
     );
   }
 
- Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,
-      'fullName': fullName,
+      'fullName': lastName,
       'asset': asset,
     };
   }
@@ -59,7 +59,7 @@ class Player {
     return Player(
       id: map['id'] as int,
       name: map['name'] as String,
-      fullName: map['fullName'] as String,
+      lastName: map['fullName'] as String,
       asset: map['asset'] as String,
     );
   }

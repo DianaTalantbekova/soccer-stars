@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:soccer_stars/commons/text_style_helper.dart';
+import 'package:soccer_stars/commons/theme_helper.dart';
+import 'package:soccer_stars/widgets/premium_button.dart';
 
 class PremiumScreen extends StatefulWidget {
   const PremiumScreen({super.key});
@@ -12,7 +15,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF171822),
+      backgroundColor: ThemeHelper.backgroundColor,
       body: Stack(
         children: [
           Positioned.fill(
@@ -52,18 +55,14 @@ class _PremiumScreenState extends State<PremiumScreen> {
         SizedBox(height: 48.h),
         _buildInfo(),
         SizedBox(height: 136.h),
-        Container(
-          width: 343.w,
-          height: 72.h,
-          color: Colors.green,
-        ),
+        const PremiumButton(text: 'Get premium for 0.99\$'),
         SizedBox(height: 16.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildTextButton(),
-            _buildTextButton(),
-            _buildTextButton(),
+            _buildTextButton(text: 'Terms of Use'),
+            _buildTextButton(text: 'Restore'),
+            _buildTextButton(text: 'Privacy Policy'),
           ],
         )
       ],
@@ -111,14 +110,14 @@ class _PremiumScreenState extends State<PremiumScreen> {
     );
   }
 
-  Widget _buildTextButton() {
+  Widget _buildTextButton({required String text}) {
     return SizedBox(
       height: 40.h,
       width: 114.w,
-      child: const Center(
+      child: Center(
         child: Text(
-          "data",
-          style: TextStyle(color: Colors.white),
+          text,
+          style: TextStyleHelper.helper2,
         ),
       ),
     );
@@ -135,10 +134,10 @@ class _PremiumScreenState extends State<PremiumScreen> {
         width: 147.w,
         height: 87.h,
         decoration: BoxDecoration(
-          color: const Color(0xFF171822).withOpacity(0.94),
+          color: ThemeHelper.blue94,
           borderRadius: BorderRadius.circular(4.r),
           border: Border.all(
-            color: const Color(0xFF3692FD),
+            color: ThemeHelper.lightblue,
             width: 0.5.r,
           ),
         ),
@@ -153,11 +152,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
             SizedBox(height: 5.h),
             Text(
               text,
-              style: TextStyle(
-                fontSize: 14.sp,
-                height: 17 / 14,
-                color: Colors.white,
-              ),
+              style: TextStyleHelper.helper3,
               textAlign: TextAlign.center,
             ),
           ],

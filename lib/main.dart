@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:soccer_stars/screens/premium_screen.dart';
-import 'package:soccer_stars/screens/quiz_screen.dart';
+import 'package:soccer_stars/screens/screens.dart';
 
 void main() {
   runZonedGuarded(() {
@@ -23,21 +21,30 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  MyApp({
+    super.key,
+  });
 
   final GoRouter _router = GoRouter(
+    // initialLocation: '/store_screen',
     routes: [
+      // ShellRoute(
+      //   navigatorKey: _shellNavigatorKey,
+      //   builder: (context, state, child) {
+      //     return ScaffoldWithBottomNavBar(child: child);
+      //   },
+      // ),
       GoRoute(
         routes: [
           GoRoute(
             path: 'quiz_screen',
             builder: (BuildContext context, GoRouterState state) =>
-                const QuizScreen(),
+                const PremiumScreen(),
           ),
         ],
         path: '/',
         builder: (BuildContext context, GoRouterState state) =>
-            const PremiumScreen(),
+            const CollectionsScreen(),
       ),
     ],
   );

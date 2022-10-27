@@ -41,7 +41,7 @@ final List<Player> players = [
     id: 6,
     name: "Giuseppe",
     lastName: "Meazza",
-    asset: "assets/png/meazza.jpg",
+    asset: "assets/png/maezza.jpg",
   ),
   const Player(
     id: 7,

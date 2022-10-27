@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:soccer_stars/commons/theme_helper.dart';
+import 'package:soccer_stars/utils/players.dart';
 import 'package:soccer_stars/widgets/app_bar_widget.dart';
+import 'package:soccer_stars/widgets/custom_avatar_widget.dart';
 
 class CollectionsScreen extends StatelessWidget {
   const CollectionsScreen({super.key});
@@ -10,18 +12,18 @@ class CollectionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ThemeHelper.backgroundColor,
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              'assets/png/background_image.png',
-              fit: BoxFit.cover,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Image.asset(
+                'assets/png/background_image.png',
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          SafeArea(
-            child: _buildBody(),
-          ),
-        ],
+            _buildBody(),
+          ],
+        ),
       ),
     );
   }
@@ -34,42 +36,22 @@ class CollectionsScreen extends StatelessWidget {
           currentPlayer: 2,
           totalPlayers: 80,
         ),
-        SizedBox(height: 20.h),
         Expanded(
           child: GridView.builder(
-            itemCount: 20,
-            padding: EdgeInsets.symmetric(horizontal: 17.w),
+            itemCount: 80,
+            padding: EdgeInsets.symmetric(
+              horizontal: 17.w,
+              vertical: 20.h,
+            ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              crossAxisSpacing: 16.w,
-              mainAxisSpacing: 16.h,
+              crossAxisSpacing: 16.r,
+              mainAxisSpacing: 16.r,
+              childAspectRatio: 103 / 131,
             ),
             itemBuilder: (context, index) {
-              return Container(
-                width: 103.r,
-                height: 131.r,
-                decoration: BoxDecoration(
-                  border: Border.all(color: ThemeHelper.blue50),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(4.r),
-                    topRight: Radius.circular(4.r),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.r),
-                        topRight: Radius.circular(4.r),
-                      ),
-                      child: Image.asset(
-                        'assets/png/pele.png',
-                        width: 103.r,
-                        height: 100.r,
-                      ),
-                    ),
-                  ],
-                ),
+              return CustomAvatarWidget(
+                opened: index < 1, player: players[index],
               );
             },
           ),
@@ -77,5 +59,4 @@ class CollectionsScreen extends StatelessWidget {
       ],
     );
   }
-  // Widget _buildGuessedPlayer(){}
 }

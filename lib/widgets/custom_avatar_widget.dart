@@ -14,43 +14,52 @@ class CustomAvatarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 103.r,
-      height: 131.r,
-      decoration: BoxDecoration(
-        color: const Color(0xFF171822),
-        border: Border.all(
-          color: const Color(0xFF393B55).withOpacity(0.5),
-          width: 1.r,
-        ),
-        borderRadius: BorderRadius.circular(4.r),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(4.r),
-        ),
-        child: Column(
-          children: [
-            Container(
-              width: 103.r,
-              height: 100.r,
-              color: const Color(0xFF3692FD).withOpacity(0.1),
-              child: _buildImage(),
+    return Stack(
+      children: [
+        Container(
+          width: 103.r,
+          height: 131.r,
+          decoration: BoxDecoration(
+            color: const Color(0xFF171822),
+            borderRadius: BorderRadius.circular(4.r),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(4.r),
             ),
-            Expanded(
-              child: Center(
-                child: Text(
-                  opened ? player.lastName : '?',
-                  style: TextStyleHelper.helper9.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: opened ? null : Colors.white.withOpacity(0.5),
-                  ),
+            child: Column(
+              children: [
+                Container(
+                  width: 103.r,
+                  height: 100.r,
+                  color: const Color(0xFF3692FD).withOpacity(0.1),
+                  child: _buildImage(),
                 ),
-              ),
-            )
-          ],
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      opened ? player.lastName : '?',
+                      style: TextStyleHelper.helper9.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: opened ? null : Colors.white.withOpacity(0.5),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
-      ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: const Color(0xFF393B55).withOpacity(0.5),
+              width: 1.r,
+            ),
+            borderRadius: BorderRadius.circular(4.r),
+          ),
+        ),
+      ],
     );
   }
 

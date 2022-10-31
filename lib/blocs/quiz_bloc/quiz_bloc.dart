@@ -26,7 +26,10 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
   FutureOr<void> _onNext(
     NextQuizEvent event,
     Emitter<QuizState> emit,
-  ) {}
+  ) {
+    final newState = _generateLevel(state.player);
+    emit(newState);
+  }
 
   FutureOr<void> _onInit(
     InitQuizEvent event,
@@ -97,7 +100,11 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       final id = letters.length;
       final letter = tempLetters[Random().nextInt(tempLetters.length)];
       tempLetters.remove(letter);
-      letters.add(Character(id: id, char: letter, fromHint: false));
+      letters.add(Character(
+        id: id,
+        char: letter.toUpperCase(),
+        fromHint: false,
+      ));
     }
 
     return state.copyWith(
@@ -133,7 +140,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     }
 
     final quizWord = word.map((e) => e.char).join();
-    if (quizWord != state.player.lastName) {
+    if (quizWord != state.player.lastName.toUpperCase()) {
       return emit(state.copyWith(
         word: word,
         letters: letters,
@@ -147,6 +154,8 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       level: level,
       player: player,
     ));
+
+    add(NextQuizEvent());
   }
 
   FutureOr<void> _onUnselectLetter(

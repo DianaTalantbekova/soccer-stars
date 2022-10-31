@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:soccer_stars/blocs/blocs.dart';
 import 'package:soccer_stars/commons/text_style_helper.dart';
 import 'package:soccer_stars/commons/theme_helper.dart';
 import 'package:soccer_stars/widgets/app_bar_widget.dart';
@@ -29,36 +31,45 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    return Column(
-      children: [
-        const AppBarWidget(
-          coins: 40,
-          currentPlayer: 2,
-          totalPlayers: 80,
-        ),
-        SizedBox(height: 20.h),
-        const PremiumButton(text: 'Get premium for 0.99\$'),
-        SizedBox(height: 24.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return BlocBuilder<QuizBloc, QuizState>(
+      builder: (context, state) {
+        final level = state.level;
+        final premium = state.premium;
+        return Column(
           children: [
-            _buildSettingsButton(
-              asset: 'assets/png/privacy_policy.png',
-              text: 'privacy\npolicy',
+            AppBarWidget(
+              coins: 40,
+              currentPlayer: level,
+              totalPlayers: 80,
             ),
-            SizedBox(width: 16.w),
+            SizedBox(height: 20.h),
+            PremiumButton(
+              text: !premium ? 'Get premium for 0.99\$' : 'get 50 coins',
+              onTap: () => premium ? _getMoney() : _getPremium(),
+            ),
+            SizedBox(height: 24.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildSettingsButton(
+                  asset: 'assets/png/privacy_policy.png',
+                  text: 'privacy\npolicy',
+                ),
+                SizedBox(width: 16.w),
+                _buildSettingsButton(
+                  asset: 'assets/png/terms_of_use.png',
+                  text: 'terms\nof use',
+                ),
+              ],
+            ),
+            SizedBox(height: 16.h),
             _buildSettingsButton(
-              asset: 'assets/png/terms_of_use.png',
-              text: 'terms\nof use',
+              asset: 'assets/png/support.png',
+              text: 'support',
             ),
           ],
-        ),
-        SizedBox(height: 16.h),
-        _buildSettingsButton(
-          asset: 'assets/png/support.png',
-          text: 'support',
-        ),
-      ],
+        );
+      },
     );
   }
 
@@ -96,4 +107,8 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _getMoney() {}
+
+  void _getPremium() {}
 }

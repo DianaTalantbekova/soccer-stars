@@ -50,11 +50,12 @@ class _QuizScreenState extends State<QuizScreen> {
       builder: (context, state) {
         final word = state.word;
         final length = word.length;
+        final player = state.player;
         return Column(
           children: [
-            const AppBarWidget(
+            AppBarWidget(
               coins: 30,
-              currentPlayer: 1,
+              currentPlayer: state.level,
               totalPlayers: 80,
             ),
             SizedBox(height: 20.h),
@@ -63,7 +64,10 @@ class _QuizScreenState extends State<QuizScreen> {
               child: SizedBox(
                 width: 295.r,
                 height: 295.r,
-                child: Image.asset('assets/png/pele.png'),
+                child: Image.asset(
+                  player.asset,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(height: 16.h),

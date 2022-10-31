@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:soccer_stars/blocs/quiz_bloc/quiz_bloc.dart';
 import 'package:soccer_stars/screens/screens.dart';
 import 'package:soccer_stars/services/preference_service.dart';
+import 'package:soccer_stars/utils/players.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -96,15 +97,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    cacheImage(context);
     return RepositoryProvider<PreferenceService>(
       create: (context) => PreferenceService(),
       child: BlocProvider<QuizBloc>(
-        create: (context) => QuizBloc(RepositoryProvider.of(context))..add(InitQuizEvent()),
+        create: (context) =>
+            QuizBloc(RepositoryProvider.of(context))..add(InitQuizEvent()),
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
           routerConfig: _router,
         ),
       ),
     );
+  }
+
+  void cacheImage(BuildContext context) async {
+    for (final item in players) {
+      precacheImage(Image.asset(item.asset).image, context);
+      await Future.delayed(const Duration(microseconds: 50));
+    }
   }
 }

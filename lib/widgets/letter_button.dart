@@ -4,15 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:soccer_stars/commons/text_style_helper.dart';
 import 'package:soccer_stars/commons/theme_helper.dart';
+import 'package:soccer_stars/models/character.dart';
 
 class LetterButton extends StatelessWidget {
   const LetterButton({
     Key? key,
+    this.onTap, required this.character,
   }) : super(key: key);
+
+  final VoidCallback? onTap;
+  final Character character;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onTap,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4.r),
         child: BackdropFilter(
@@ -32,7 +38,7 @@ class LetterButton extends StatelessWidget {
               ),
             ),
             child: Text(
-              'A',
+              character.char,
               style: TextStyleHelper.helper8,
             ),
           ),

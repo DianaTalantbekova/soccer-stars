@@ -1,11 +1,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:soccer_stars/screens/navigation_screen.dart';
+import 'package:soccer_stars/blocs/quiz_bloc/quiz_bloc.dart';
 import 'package:soccer_stars/screens/screens.dart';
+import 'package:soccer_stars/services/preference_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await PreferenceService().init();
+
   runZonedGuarded(() {
     runApp(
       ScreenUtilInit(
@@ -90,12 +96,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routerConfig: _router,
-      // routerDelegate: _router.routerDelegate,
-      // routeInformationParser: _router.routeInformationParser,
-      // routeInformationProvider: _router.routeInformationProvider,
+    return RepositoryProvider<PreferenceService>(
+      create: (context) => PreferenceService(),
+      child: BlocProvider<QuizBloc>(
+        create: (context) => QuizBloc(RepositoryProvider.of(context))..add(InitQuizEvent()),
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          routerConfig: _router,
+        ),
+      ),
     );
   }
 }

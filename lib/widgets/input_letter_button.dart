@@ -2,14 +2,19 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:soccer_stars/commons/text_style_helper.dart';
 import 'package:soccer_stars/commons/theme_helper.dart';
+import 'package:soccer_stars/models/models.dart';
 
 class InputLetterButton extends StatelessWidget {
   const InputLetterButton({
     super.key,
     this.onTap,
+    required this.character,
   });
+
   final VoidCallback? onTap;
+  final Character character;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +35,12 @@ class InputLetterButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(4.r),
               border: Border.all(
                 color: ThemeHelper.white.withOpacity(0.1),
+              ),
+            ),
+            child: Center(
+              child: Text(
+                character.char,
+                style: TextStyleHelper.helper3,
               ),
             ),
           ),

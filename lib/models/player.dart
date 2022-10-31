@@ -1,3 +1,4 @@
+
 class Player {
   final int id;
   final String name;
@@ -41,7 +42,7 @@ class Player {
     return Player(
       id: id ?? this.id,
       name: name ?? this.name,
-      lastName: fullName ?? this.lastName,
+      lastName: fullName ?? lastName,
       asset: asset ?? this.asset,
     );
   }

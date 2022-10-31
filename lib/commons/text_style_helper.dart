@@ -16,7 +16,7 @@ class TextStyleHelper {
     fontWeight: FontWeight.w400,
     fontSize: 12.sp,
     height: 15 / 12,
-    color: ThemeHelper.white7,
+    color: ThemeHelper.white,
   );
 
   static TextStyle helper3 = TextStyle(
@@ -32,7 +32,7 @@ class TextStyleHelper {
     fontWeight: FontWeight.w500,
     fontSize: 17.sp,
     height: 21 / 17,
-    color: ThemeHelper.lightblue,
+    color: ThemeHelper.lightBlue,
   );
 
   static TextStyle helper5 = TextStyle(
@@ -48,7 +48,7 @@ class TextStyleHelper {
     fontWeight: FontWeight.w500,
     fontSize: 14.sp,
     height: 17 / 14,
-    color: ThemeHelper.white3,
+    color: ThemeHelper.white,
   );
 
   static TextStyle helper7 = TextStyle(
@@ -80,6 +80,6 @@ class TextStyleHelper {
     fontWeight: FontWeight.w500,
     fontSize: 16.sp,
     height: 20 / 16,
-    color: ThemeHelper.white50,
+    color: ThemeHelper.white,
   );
 }

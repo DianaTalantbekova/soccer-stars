@@ -20,7 +20,7 @@ class AppBarWidget extends StatelessWidget {
       width: 375.w,
       height: 56.h,
       child: AppBar(
-        backgroundColor: ThemeHelper.blue94,
+        backgroundColor: ThemeHelper.darkBlue.withOpacity(0.94),
         elevation: 0,
         title: RichText(
           text: TextSpan(
@@ -36,21 +36,15 @@ class AppBarWidget extends StatelessWidget {
         ),
         centerTitle: true,
         actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 13.r,
-              vertical: 19.r,
-            ),
-            child: Text(
-              '$currentPlayer/$totalPlayers',
-              style: TextStyleHelper.helper6,
-            ),
+          Text(
+            '$currentPlayer/$totalPlayers',
+            style: TextStyleHelper.helper6,
           ),
         ],
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(1.h),
           child: Container(
-            color: ThemeHelper.borderColor,
+            color: ThemeHelper.black.withOpacity(0.1),
             height: 1.h,
           ),
         ),

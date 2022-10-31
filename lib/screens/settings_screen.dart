@@ -13,7 +13,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ThemeHelper.backgroundColor,
+      backgroundColor: ThemeHelper.darkBlue,
       body: Stack(
         children: [
           Positioned.fill(
@@ -75,8 +75,10 @@ class SettingsScreen extends StatelessWidget {
         width: 163.5.r,
         height: 72.r,
         decoration: BoxDecoration(
-          color: ThemeHelper.backgroundColor,
-          border: Border.all(color: ThemeHelper.blue50op3),
+          color: ThemeHelper.darkBlue,
+          border: Border.all(
+            color: ThemeHelper.lightBlue.withOpacity(0.3),
+          ),
           borderRadius: BorderRadius.circular(4.r),
         ),
         child: Row(

@@ -8,7 +8,7 @@ class PremiumButton extends StatefulWidget {
     super.key,
     this.onTap,
     required this.text,
-    this.color = ThemeHelper.lightblue,
+    this.color = ThemeHelper.lightBlue,
   });
   final String text;
   final VoidCallback? onTap;
@@ -35,7 +35,7 @@ class _PremiumButtonState extends State<PremiumButton> {
           boxShadow: widget._active
               ? [
                   BoxShadow(
-                    color: ThemeHelper.blue35,
+                    color: ThemeHelper.white.withOpacity(0.15),
                     offset: Offset(
                       0.r,
                       4.r,

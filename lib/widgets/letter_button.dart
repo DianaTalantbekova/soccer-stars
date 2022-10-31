@@ -19,9 +19,11 @@ class LetterButton extends StatelessWidget {
         width: 23.91.w,
         height: 40.h,
         decoration: BoxDecoration(
-          color: ThemeHelper.blue50,
+          color: ThemeHelper.blue.withOpacity(0.5),
           borderRadius: BorderRadius.circular(4.r),
-          border: Border.all(color: ThemeHelper.border),
+          border: Border.all(
+            color: ThemeHelper.white.withOpacity(0.1),
+          ),
         ),
       ),
     );

@@ -12,7 +12,7 @@ class QuizScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ThemeHelper.backgroundColor,
+      backgroundColor: ThemeHelper.darkBlue,
       body: Stack(
         children: [
           Positioned.fill(
@@ -69,7 +69,7 @@ class QuizScreen extends StatelessWidget {
 
   Widget _buildHints() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: EdgeInsets.symmetric(horizontal: 18.w),
       child: Row(
         children: [
           const HintButton(
@@ -84,9 +84,9 @@ class QuizScreen extends StatelessWidget {
             asset: 'aA',
           ),
           const Spacer(),
-          const HintButton(
+          HintButton(
             asset: 'assets/png/backspace.png',
-            color: ThemeHelper.red50,
+            color: ThemeHelper.red.withOpacity(0.5),
           ),
         ],
       ),
@@ -113,9 +113,11 @@ class QuizScreen extends StatelessWidget {
             width: 50.5.r,
             height: 50.r,
             decoration: BoxDecoration(
-              color: ThemeHelper.backgroundColor,
+              color: ThemeHelper.darkBlue,
               borderRadius: BorderRadius.circular(4.r),
-              border: Border.all(color: ThemeHelper.border),
+              border: Border.all(
+                color: ThemeHelper.white.withOpacity(0.1),
+              ),
             ),
             child: Text(
               'A',

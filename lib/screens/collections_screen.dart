@@ -11,7 +11,7 @@ class CollectionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ThemeHelper.backgroundColor,
+      backgroundColor: ThemeHelper.darkBlue,
       body: SafeArea(
         child: Stack(
           children: [

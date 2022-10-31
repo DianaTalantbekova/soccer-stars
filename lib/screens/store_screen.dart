@@ -12,7 +12,7 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ThemeHelper.backgroundColor,
+      backgroundColor: ThemeHelper.darkBlue,
       body: Stack(
         children: [
           Positioned.fill(
@@ -75,9 +75,11 @@ class StoreScreen extends StatelessWidget {
       width: 343.r,
       height: 80.r,
       decoration: BoxDecoration(
-        color: ThemeHelper.purple,
+        color: ThemeHelper.blue.withOpacity(0.5),
         borderRadius: BorderRadius.circular(4.r),
-        border: Border.all(color: ThemeHelper.borderCardColor),
+        border: Border.all(
+          color: ThemeHelper.lightBlue.withOpacity(0.05),
+        ),
       ),
       child: Row(
         children: [
@@ -94,7 +96,11 @@ class StoreScreen extends StatelessWidget {
                       text: title.toUpperCase(),
                       style: TextStyleHelper.helper7,
                     ),
-                    if (count != 0) TextSpan(text: "-${count.toString()}"),
+                    if (count != 0)
+                      TextSpan(
+                          text: " — ${count.toString()}",
+                          style: TextStyleHelper.helper7
+                              .copyWith(color: ThemeHelper.lightBlue)),
                   ],
                 ),
               ),

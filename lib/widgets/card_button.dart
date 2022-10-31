@@ -10,7 +10,7 @@ class CardButton extends StatelessWidget {
   const CardButton({
     super.key,
     this.onTap,
-    this.color = ThemeHelper.lightblue,
+    this.color = ThemeHelper.lightBlue,
     required this.buttonText,
   });
   bool get _active => onTap != null;

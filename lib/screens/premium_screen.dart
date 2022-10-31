@@ -15,7 +15,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ThemeHelper.backgroundColor,
+      backgroundColor: ThemeHelper.darkBlue,
       body: Stack(
         children: [
           Positioned.fill(
@@ -134,10 +134,10 @@ class _PremiumScreenState extends State<PremiumScreen> {
         width: 147.w,
         height: 87.h,
         decoration: BoxDecoration(
-          color: ThemeHelper.blue94,
+          color: ThemeHelper.darkBlue.withOpacity(0.94),
           borderRadius: BorderRadius.circular(4.r),
           border: Border.all(
-            color: ThemeHelper.lightblue,
+            color: ThemeHelper.lightBlue,
             width: 0.5.r,
           ),
         ),

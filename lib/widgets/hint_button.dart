@@ -8,7 +8,7 @@ class HintButton extends StatelessWidget {
     super.key,
     required this.asset,
     this.onTap,
-    this.color = ThemeHelper.lightblue,
+    this.color = ThemeHelper.lightBlue,
   });
   final String asset;
   final VoidCallback? onTap;
@@ -28,7 +28,9 @@ class HintButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: _active ? color.withOpacity(0.5) : color.withOpacity(0.3),
           borderRadius: BorderRadius.circular(4.r),
-          border: Border.all(color: ThemeHelper.border),
+          border: Border.all(
+            color: ThemeHelper.white.withOpacity(0.1),
+          ),
         ),
         child: Center(
           child: _buildBody(),

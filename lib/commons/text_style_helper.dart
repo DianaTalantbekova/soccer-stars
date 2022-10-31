@@ -48,7 +48,7 @@ class TextStyleHelper {
     fontWeight: FontWeight.w500,
     fontSize: 14.sp,
     height: 17 / 14,
-    color: ThemeHelper.white,
+    color: ThemeHelper.white.withOpacity(0.3),
   );
 
   static TextStyle helper7 = TextStyle(

@@ -4,6 +4,7 @@ import 'package:soccer_stars/commons/text_style_helper.dart';
 import 'package:soccer_stars/commons/theme_helper.dart';
 import 'package:soccer_stars/widgets/app_bar_widget.dart';
 import 'package:soccer_stars/widgets/hint_button.dart';
+import 'package:soccer_stars/widgets/input_letter_button.dart';
 import 'package:soccer_stars/widgets/letter_button.dart';
 
 class QuizScreen extends StatelessWidget {
@@ -50,13 +51,13 @@ class QuizScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildLetterArea(),
+            const InputLetterButton(),
             SizedBox(width: 8.w),
-            _buildLetterArea(),
+            const InputLetterButton(),
             SizedBox(width: 8.w),
-            _buildLetterArea(),
+            const InputLetterButton(),
             SizedBox(width: 8.w),
-            _buildLetterArea(),
+            const InputLetterButton(),
           ],
         ),
         SizedBox(height: 71.h),
@@ -69,7 +70,7 @@ class QuizScreen extends StatelessWidget {
 
   Widget _buildHints() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 18.w),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Row(
         children: [
           const HintButton(
@@ -93,13 +94,11 @@ class QuizScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLetterArea() {
-    return const LetterButton();
-  }
 
   Widget _buildGridView() {
     return Expanded(
       child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         itemCount: 12,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -108,24 +107,11 @@ class QuizScreen extends StatelessWidget {
           mainAxisSpacing: 8.h,
         ),
         itemBuilder: (context, index) {
-          return Container(
-            alignment: Alignment.center,
-            width: 50.5.r,
-            height: 50.r,
-            decoration: BoxDecoration(
-              color: ThemeHelper.darkBlue,
-              borderRadius: BorderRadius.circular(4.r),
-              border: Border.all(
-                color: ThemeHelper.white.withOpacity(0.1),
-              ),
-            ),
-            child: Text(
-              'A',
-              style: TextStyleHelper.helper8,
-            ),
-          );
+          return const LetterButton();
         },
       ),
     );
   }
 }
+
+

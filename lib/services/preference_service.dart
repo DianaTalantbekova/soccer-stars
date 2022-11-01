@@ -19,8 +19,10 @@ class PreferenceService {
   static const _wordHintKey = "WORD_HINT_KEY";
   static const _wordKey = "WORD_KEY";
   static const _lettersKey = "LETTERS_KEY";
+  static const _lastUpdatedKey = "LAST_UPDATED_KEY";
+  static const _coinsKey = "COINS_KEY";
 
-  Future<void> saveLevel(int value) async {
+  Future<void> setLevel(int value) async {
     await _preferences.setInt(_levelKey, value);
   }
 
@@ -74,5 +76,21 @@ class PreferenceService {
 
   List<String> getLetters() {
     return _preferences.getStringList(_lettersKey) ?? [];
+  }
+
+  Future<void> setLastUpdated() async {
+    await _preferences.setString(_lastUpdatedKey, DateTime.now().toIso8601String());
+  }
+
+  String getLastUpdated() {
+    return _preferences.getString(_lastUpdatedKey) ?? DateTime.now().toIso8601String();
+  }
+
+  Future <void> setCoins(int value) async {
+    await _preferences.setInt(_coinsKey, value);
+  }
+
+  int getCoins() {
+    return _preferences.getInt(_coinsKey) ?? 30;
   }
 }

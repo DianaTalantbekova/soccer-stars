@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:soccer_stars/blocs/blocs.dart';
 import 'package:soccer_stars/commons/text_style_helper.dart';
 import 'package:soccer_stars/commons/theme_helper.dart';
@@ -9,6 +10,8 @@ import 'package:soccer_stars/widgets/premium_button.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
+
+  final bonus = 50;
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +41,18 @@ class SettingsScreen extends StatelessWidget {
         return Column(
           children: [
             AppBarWidget(
-              coins: 40,
+              coins: state.coins,
               currentPlayer: level,
               totalPlayers: 80,
             ),
             SizedBox(height: 20.h),
             PremiumButton(
-              text: !premium ? 'Get premium for 0.99\$' : 'get 50 coins',
-              onTap: () => premium ? _getMoney() : _getPremium(),
+              text: !premium ? 'Get premium for 0.99\$' : 'get $bonus coins',
+              onTap: premium
+                  ? state.canTake
+                      ? () => _getMoney(context, bonus)
+                      : null
+                  : () => _getPremium(context),
             ),
             SizedBox(height: 24.h),
             Row(
@@ -108,7 +115,11 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  void _getMoney() {}
+  void _getMoney(BuildContext context, bonus) {
+    context.read<QuizBloc>().add(GetMoneyQuizEvent(bonus));
+  }
 
-  void _getPremium() {}
+  void _getPremium(BuildContext context) {
+    context.go('/premium_screen');
+  }
 }

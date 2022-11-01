@@ -7,6 +7,7 @@ class AppBarWidget extends StatelessWidget {
   final int coins;
   final int currentPlayer;
   final int totalPlayers;
+
   const AppBarWidget({
     Key? key,
     required this.coins,
@@ -53,7 +54,7 @@ class AppBarWidget extends StatelessWidget {
             height: 56.r,
             child: Center(
               child: Text(
-                '$currentPlayer/$totalPlayers',
+                '${currentPlayer + 1}/$totalPlayers',
                 style: TextStyleHelper.helper6,
               ),
             ),

@@ -54,7 +54,7 @@ class _QuizScreenState extends State<QuizScreen> {
         return Column(
           children: [
             AppBarWidget(
-              coins: 30,
+              coins: state.coins,
               currentPlayer: state.level,
               totalPlayers: 80,
             ),
@@ -80,7 +80,8 @@ class _QuizScreenState extends State<QuizScreen> {
                     children: [
                       InputLetterButton(
                         onTap: () => state.selectHintActivated
-                            ? _quizBloc.add(OpenSelectedLetterQuizEvent(index))
+                            ? _quizBloc
+                                .add(OpenSelectedLetterQuizEvent(index: index))
                             : _quizBloc.add(
                                 UnselectLetterQuizEvent(word[index], index),
                               ),

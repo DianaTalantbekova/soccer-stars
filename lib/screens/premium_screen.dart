@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:soccer_stars/blocs/blocs.dart';
 import 'package:soccer_stars/commons/text_style_helper.dart';
 import 'package:soccer_stars/commons/theme_helper.dart';
 import 'package:soccer_stars/widgets/premium_button.dart';
@@ -43,7 +46,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
           child: Align(
             alignment: Alignment.centerRight,
             child: GestureDetector(
-              onTap: _onTap,
+              onTap: () => context.go('/settings_screen'),
               child: SizedBox(
                 width: 24.r,
                 height: 24.r,
@@ -55,7 +58,10 @@ class _PremiumScreenState extends State<PremiumScreen> {
         SizedBox(height: 48.h),
         _buildInfo(),
         SizedBox(height: 136.h),
-        const PremiumButton(text: 'Get premium for 0.99\$'),
+        PremiumButton(
+          text: 'Get premium for 0.99\$',
+          onTap: () => _onBuy(context),
+        ),
         SizedBox(height: 16.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -161,5 +167,8 @@ class _PremiumScreenState extends State<PremiumScreen> {
     );
   }
 
-  void _onTap() {}
+  _onBuy(BuildContext context) {
+    context.read<QuizBloc>().add(BuyPremiumQuizEvent());
+    context.go('/settings_screen');
+  }
 }

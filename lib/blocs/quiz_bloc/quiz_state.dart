@@ -15,6 +15,7 @@ class QuizState {
   final int wordHint;
   final int coins;
   final bool selectHintActivated;
+  final DateTime lastUpdated;
 
   factory QuizState.loading() => QuizState(
         level: 0,
@@ -28,6 +29,7 @@ class QuizState {
         appState: AppState.loading,
         coins: 30,
         selectHintActivated: false,
+        lastUpdated: DateTime.now(),
       );
 
   bool get hasLetterInWord => word.any((element) => element.id != -1);
@@ -37,6 +39,11 @@ class QuizState {
   bool get hasSelectHints => selectHint > 0;
 
   bool get hasWordHints => wordHint > 0;
+
+  bool get canTake =>
+      DateTime.now().day != lastUpdated.day ||
+      DateTime.now().year != lastUpdated.year ||
+      DateTime.now().month != lastUpdated.month;
 
   const QuizState({
     required this.appState,
@@ -50,6 +57,7 @@ class QuizState {
     required this.wordHint,
     required this.coins,
     required this.selectHintActivated,
+    required this.lastUpdated,
   });
 
   QuizState copyWith({
@@ -64,6 +72,7 @@ class QuizState {
     int? wordHint,
     int? coins,
     bool? selectHintActivated,
+    DateTime? lastUpdated,
   }) {
     return QuizState(
       appState: appState ?? this.appState,
@@ -76,7 +85,8 @@ class QuizState {
       selectHint: selectHint ?? this.selectHint,
       wordHint: wordHint ?? this.wordHint,
       coins: coins ?? this.coins,
-      selectHintActivated: selectHintActivated ?? this.selectHintActivated,
+      selectHintActivated: selectHintActivated ?? false,
+      lastUpdated: lastUpdated ?? this.lastUpdated,
     );
   }
 }

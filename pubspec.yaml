@@ -40,6 +40,7 @@ dependencies:
   flutter_screenutil: ^5.5.4
   flutter_bloc: ^8.1.1
   shared_preferences: ^2.0.15
+  flutter_launcher_icons: ^0.10.0
 
 dev_dependencies:
   flutter_test:
@@ -54,7 +55,10 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
+flutter_icons:
+  image_path: "assets/png/icons/app_icon.png"
+  android: true
+  ios: true
 # The following section is specific to Flutter packages.
 flutter:
 

@@ -36,9 +36,9 @@ class CollectionsScreen extends StatelessWidget {
         final level = state.level;
         return Column(
           children: [
-            const AppBarWidget(
-              coins: 40,
-              currentPlayer: 2,
+            AppBarWidget(
+              coins: state.coins,
+              currentPlayer: level,
               totalPlayers: 80,
             ),
             Expanded(

@@ -17,26 +17,30 @@ class CardButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 80.r,
-      height: 40.r,
-      decoration: BoxDecoration(
-        color: _active ? color : color.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(4.r),
-        boxShadow: _active
-            ? [
-                BoxShadow(
-                  offset: Offset(0, 2.h),
-                  blurRadius: 10.r,
-                  color: color.withOpacity(0.3),
-                ),
-              ]
-            : null,
-      ),
-      child: Text(
-        buttonText.toUpperCase(),
-        style: TextStyleHelper.helper9,
+    return GestureDetector(
+      onTap: onTap,
+      child: Opacity(
+        opacity: _active ? 1 : 0.3,
+        child: Container(
+          alignment: Alignment.center,
+          width: 80.r,
+          height: 40.r,
+          decoration: BoxDecoration(
+            color:  color,
+            borderRadius: BorderRadius.circular(4.r),
+            boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 2.h),
+                      blurRadius: 10.r,
+                      color: color.withOpacity(0.3),
+                    ),
+                  ],
+          ),
+          child: Text(
+            buttonText.toUpperCase(),
+            style: TextStyleHelper.helper9,
+          ),
+        ),
       ),
     );
   }

@@ -7,8 +7,14 @@ import 'package:soccer_stars/commons/theme_helper.dart';
 import 'package:soccer_stars/models/image_item.dart';
 
 class NavigationScreen extends StatefulWidget {
-  const NavigationScreen({Key? key, required this.child}) : super(key: key);
+  const NavigationScreen({
+    Key? key,
+    required this.child,
+    this.selected,
+  }) : super(key: key);
   final Widget child;
+
+  final int? selected;
 
   @override
   State<NavigationScreen> createState() => _NavigationScreenState();
@@ -16,6 +22,12 @@ class NavigationScreen extends StatefulWidget {
 
 class _NavigationScreenState extends State<NavigationScreen> {
   int selected = 0;
+
+  @override
+  void initState() {
+    selected = widget.selected ?? 0;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

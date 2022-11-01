@@ -55,7 +55,11 @@ class MyApp extends StatelessWidget {
     routes: [
       ShellRoute(
         builder: (context, state, child) {
-          return NavigationScreen(child: child);
+          final selected = state.location == "/settings_screen" ? 3 : null;
+          return NavigationScreen(
+            selected: selected,
+            child: child,
+          );
         },
         routes: [
           GoRoute(
@@ -92,12 +96,15 @@ class MyApp extends StatelessWidget {
           ),
         ],
       ),
+      GoRoute(
+        path: '/premium_screen',
+        builder: (context, state) => const PremiumScreen(),
+      )
     ],
   );
 
   @override
   Widget build(BuildContext context) {
-    cacheImage(context);
     return RepositoryProvider<PreferenceService>(
       create: (context) => PreferenceService(),
       child: BlocProvider<QuizBloc>(

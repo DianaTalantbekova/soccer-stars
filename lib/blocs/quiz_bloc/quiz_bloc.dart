@@ -18,13 +18,18 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
 
   QuizBloc(this._preferenceService) : super(QuizState.loading()) {
     on<InitQuizEvent>(_onInit);
-    on<NextQuizEvent>(_onNext);
+    on<_NextQuizEvent>(_onNext);
     on<SelectLetterQuizEvent>(_onSelectLetter);
     on<UnselectLetterQuizEvent>(_onUnselectLetter);
+    on<RemoveLetterQuizEvent>(_onRemoveLetter);
+    on<OpenRandomLetterQuizEvent>(_onOpenRandomLetter);
+    on<SelectLetterHintQuizEvent>(_onSelectLetterHint);
+    on<OpenSelectedLetterQuizEvent>(_onOpenSelectedLetter);
+    on<OpenAllLettersQuizEvent>(_onOpenAllLetter);
   }
 
   FutureOr<void> _onNext(
-    NextQuizEvent event,
+    _NextQuizEvent event,
     Emitter<QuizState> emit,
   ) {
     final newState = _generateLevel(state.player);
@@ -75,6 +80,8 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
         selectHint: selectHint,
         wordHint: wordHint,
         appState: AppState.idle,
+        coins: 30,
+        selectHintActivated: false,
       ),
     );
   }
@@ -122,7 +129,8 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     if (character.id == emptyCharacter.id) return;
 
     final word = state.word;
-    final index = word.indexWhere((e) => e.id == emptyCharacter.id);
+    final index =
+        event.index ?? word.indexWhere((e) => e.id == emptyCharacter.id);
     if (index == -1) return;
 
     final letters = state.letters;
@@ -150,12 +158,13 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     final level = state.level + 1;
     final player = players[level];
 
+
     emit(state.copyWith(
       level: level,
       player: player,
     ));
 
-    add(NextQuizEvent());
+    add(_NextQuizEvent());
   }
 
   FutureOr<void> _onUnselectLetter(
@@ -176,4 +185,87 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       letters: letters,
     ));
   }
+
+  FutureOr<void> _onRemoveLetter(
+    RemoveLetterQuizEvent event,
+    Emitter<QuizState> emit,
+  ) async {
+    final word = state.word;
+
+    final emptyCharacter = Character.empty();
+    final index = word.lastIndexWhere(
+        (element) => element.id != emptyCharacter.id && !element.fromHint);
+
+    if (index == -1) return;
+
+    final letters = state.letters;
+    final character = word[index];
+
+    word[index] = emptyCharacter;
+    letters[character.id] = character;
+
+    emit(state.copyWith(
+      word: word,
+      letters: letters,
+    ));
+  }
+
+  FutureOr<void> _onOpenRandomLetter(
+    OpenRandomLetterQuizEvent event,
+    Emitter<QuizState> emit,
+  ) async {
+    final randomHint = state.randomHint - 1;
+    final word = state.word;
+    final emptyCharacter = Character.empty();
+
+    final correctWord = state.player.lastName.split('');
+    final List<int> indexes = [];
+    for (int i = 0; i < correctWord.length; i++) {
+      if (correctWord[i].toUpperCase() != word[i].char.toUpperCase() &&
+          !word[i].fromHint) {
+        indexes.add(i);
+      }
+    }
+
+    if (indexes.isEmpty) return;
+
+    final subIndex = Random().nextInt(indexes.length);
+    final index = indexes[subIndex];
+    final tempCharacter = word[index];
+    final targetLetter = correctWord[index];
+
+    final letters = state.letters;
+    final character = letters.firstWhere(
+      (element) => element.char.toUpperCase() == targetLetter.toUpperCase(),
+      orElse: () => emptyCharacter,
+    );
+
+    if (character == emptyCharacter) return;
+
+    emit(state.copyWith(randomHint: randomHint));
+
+    add(UnselectLetterQuizEvent(tempCharacter, index));
+
+    add(SelectLetterQuizEvent(
+      character: character.copyWith(fromHint: true),
+      index: index,
+    ));
+  }
+
+  FutureOr<void> _onSelectLetterHint(
+    SelectLetterHintQuizEvent event,
+    Emitter<QuizState> emit,
+  ) {
+    emit(state.copyWith(selectHintActivated: true));
+  }
+
+  FutureOr<void> _onOpenSelectedLetter(
+    OpenSelectedLetterQuizEvent event,
+    Emitter<QuizState> emit,
+  ) {}
+
+  FutureOr<void> _onOpenAllLetter(
+    OpenAllLettersQuizEvent event,
+    Emitter<QuizState> emit,
+  ) {}
 }

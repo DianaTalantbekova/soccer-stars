@@ -79,7 +79,11 @@ class _QuizScreenState extends State<QuizScreen> {
                   return Row(
                     children: [
                       InputLetterButton(
-                        onTap: () => _onUnselect(word[index], index),
+                        onTap: () => state.selectHintActivated
+                            ? _quizBloc.add(OpenSelectedLetterQuizEvent(index))
+                            : _quizBloc.add(
+                                UnselectLetterQuizEvent(word[index], index),
+                              ),
                         character: word[index],
                       ),
                       if (index != length - 1) SizedBox(width: 8.w),
@@ -89,7 +93,7 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
             ),
             SizedBox(height: 71.h),
-            _buildHints(),
+            _buildHints(state),
             SizedBox(height: 8.h),
             _buildGridView(state.letters),
           ],
@@ -98,26 +102,36 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  Widget _buildHints() {
+  Widget _buildHints(QuizState state) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Row(
         children: [
-          const HintButton(
+          HintButton(
             asset: '?',
+            onTap: state.hasRandomHints
+                ? () => _quizBloc.add(OpenRandomLetterQuizEvent())
+                : null,
           ),
           SizedBox(width: 8.w),
-          const HintButton(
+          HintButton(
             asset: 'assets/png/pencil.png',
+            onTap: state.hasSelectHints
+                ? () => _quizBloc.add(SelectLetterHintQuizEvent())
+                : null,
           ),
           SizedBox(width: 8.w),
-          const HintButton(
+          HintButton(
             asset: 'aA',
+            onTap: state.hasWordHints
+                ? () => _quizBloc.add(OpenAllLettersQuizEvent())
+                : null,
           ),
           const Spacer(),
           HintButton(
             asset: 'assets/png/backspace.png',
             color: ThemeHelper.red.withOpacity(0.5),
+            onTap: state.hasLetterInWord ? _onRemove : null,
           ),
         ],
       ),
@@ -145,11 +159,11 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  void _onUnselect(Character character, int index) {
-    _quizBloc.add(UnselectLetterQuizEvent(character, index));
+  void _onSelect(Character character) {
+    _quizBloc.add(SelectLetterQuizEvent(character: character));
   }
 
-  void _onSelect(Character character) {
-    _quizBloc.add(SelectLetterQuizEvent(character));
+  void _onRemove() {
+    _quizBloc.add(RemoveLetterQuizEvent());
   }
 }

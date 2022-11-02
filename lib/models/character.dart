@@ -11,6 +11,12 @@ class Character {
         fromHint: false,
       );
 
+  factory Character.space() => const Character(
+        id: -2,
+        char: '',
+        fromHint: true,
+      );
+
   const Character({
     required this.id,
     required this.char,

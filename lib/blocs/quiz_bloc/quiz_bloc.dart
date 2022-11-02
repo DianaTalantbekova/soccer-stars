@@ -119,6 +119,14 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       for (int i = 0; i < length; i++) Character.empty()
     ];
 
+    final spaceIndex = tempLetters.indexWhere((element) => element == " ");
+
+    if(spaceIndex != -1){
+      word[spaceIndex] = Character.space();
+      tempLetters.remove(' ');
+      tempLetters.add(randomString(1));
+    }
+
     final List<Character> letters = [];
 
     while (letters.length < maxLetters) {
@@ -176,7 +184,8 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     ));
 
     final quizWord = word.map((e) => e.char).join();
-    if (quizWord != state.player.lastName.toUpperCase()) return;
+    final lastName = state.player.lastName.replaceAll(' ', '').toUpperCase();
+    if (quizWord != lastName) return;
 
     final level = state.level + 1;
     final player = players[level];

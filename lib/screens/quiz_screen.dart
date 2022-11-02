@@ -67,6 +67,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 child: Image.asset(
                   player.asset,
                   fit: BoxFit.cover,
+                  key: UniqueKey(),
                   alignment: Alignment.topCenter,
                 ),
               ),

@@ -18,6 +18,12 @@ class InputLetterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (character == Character.space()) {
+      return SizedBox(
+        width: 23.91.w,
+        height: 40.h,
+      );
+    }
     return GestureDetector(
       onTap: onTap,
       child: ClipRRect(

@@ -17,8 +17,6 @@ class CustomAvatarWidget extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          width: 103.r,
-          height: 131.r,
           decoration: BoxDecoration(
             color: const Color(0xFF171822),
             borderRadius: BorderRadius.circular(4.r),
@@ -30,8 +28,8 @@ class CustomAvatarWidget extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  width: 103.r,
-                  height: 100.r,
+                  width: 103.sp,
+                  height: 100.sp,
                   color: const Color(0xFF3692FD).withOpacity(0.1),
                   child: _buildImage(),
                 ),
@@ -68,6 +66,7 @@ class CustomAvatarWidget extends StatelessWidget {
       return Image.asset(
         player.asset,
         fit: BoxFit.cover,
+        alignment: Alignment.topCenter,
       );
     }
     return Center(

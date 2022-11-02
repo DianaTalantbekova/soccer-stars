@@ -19,8 +19,7 @@ class AppBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      width: 375.r,
-      height: 56.r,
+      height: 56.h,
       decoration: BoxDecoration(
         color: ThemeHelper.darkBlue.withOpacity(0.94),
         border: Border(

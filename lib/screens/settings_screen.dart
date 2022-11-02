@@ -7,6 +7,7 @@ import 'package:soccer_stars/commons/text_style_helper.dart';
 import 'package:soccer_stars/commons/theme_helper.dart';
 import 'package:soccer_stars/widgets/app_bar_widget.dart';
 import 'package:soccer_stars/widgets/premium_button.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -25,8 +26,10 @@ class SettingsScreen extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          SafeArea(
-            child: _buildBody(),
+          Positioned.fill(
+            child: SafeArea(
+              child: _buildBody(),
+            ),
           ),
         ],
       ),
@@ -59,11 +62,15 @@ class SettingsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _buildSettingsButton(
+                  onTap: () => _launchUrl(
+                      'https://docs.google.com/document/d/1LX6b5dORlzysVeeiVk3WJjPpMHIxssi3C4XLTRgjSiE/edit?usp=sharing'),
                   asset: 'assets/png/privacy_policy.png',
                   text: 'privacy\npolicy',
                 ),
                 SizedBox(width: 16.w),
                 _buildSettingsButton(
+                  onTap: () => _launchUrl(
+                      'https://docs.google.com/document/d/1VBJiNRrRuddf2NsFh4KhnJ1HnAd6HhuIfHUS69rL02M/edit?usp=sharing'),
                   asset: 'assets/png/terms_of_use.png',
                   text: 'terms\nof use',
                 ),
@@ -71,6 +78,8 @@ class SettingsScreen extends StatelessWidget {
             ),
             SizedBox(height: 16.h),
             _buildSettingsButton(
+              onTap: () => _launchUrl(
+                  'https://docs.google.com/forms/d/e/1FAIpQLSftNcEx2tmzCKe9w2Ul_QQqAP35ulK4e65OfgUxxC35EjxIeg/viewform?usp=sf_link'),
               asset: 'assets/png/support.png',
               text: 'support',
             ),
@@ -83,13 +92,14 @@ class SettingsScreen extends StatelessWidget {
   Widget _buildSettingsButton({
     required String asset,
     required String text,
+    VoidCallback? onTap,
   }) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.only(left: 20.r),
-        width: 163.5.r,
-        height: 72.r,
+        width: 163.5.w,
+        height: 72.h,
         decoration: BoxDecoration(
           color: ThemeHelper.darkBlue,
           border: Border.all(
@@ -121,5 +131,11 @@ class SettingsScreen extends StatelessWidget {
 
   void _getPremium(BuildContext context) {
     context.go('/premium_screen');
+  }
+
+  Future<void> _launchUrl(String link) async {
+    if (!await launchUrlString(link)) {
+      throw 'Could not launch $link';
+    }
   }
 }

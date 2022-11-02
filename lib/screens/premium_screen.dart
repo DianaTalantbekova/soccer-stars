@@ -6,6 +6,7 @@ import 'package:soccer_stars/blocs/blocs.dart';
 import 'package:soccer_stars/commons/text_style_helper.dart';
 import 'package:soccer_stars/commons/theme_helper.dart';
 import 'package:soccer_stars/widgets/premium_button.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class PremiumScreen extends StatefulWidget {
   const PremiumScreen({super.key});
@@ -66,9 +67,20 @@ class _PremiumScreenState extends State<PremiumScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildTextButton(text: 'Terms of Use'),
-            _buildTextButton(text: 'Restore'),
-            _buildTextButton(text: 'Privacy Policy'),
+            _buildTextButton(
+              text: 'Terms of Use',
+              onTap: () => _launchUrl(
+                  'https://docs.google.com/document/d/1VBJiNRrRuddf2NsFh4KhnJ1HnAd6HhuIfHUS69rL02M/edit?usp=sharing'),
+            ),
+            _buildTextButton(
+              text: 'Restore',
+              onTap: () => _onBuy(context),
+            ),
+            _buildTextButton(
+              text: 'Privacy Policy',
+              onTap: () => _launchUrl(
+                  'https://docs.google.com/document/d/1LX6b5dORlzysVeeiVk3WJjPpMHIxssi3C4XLTRgjSiE/edit?usp=sharing'),
+            ),
           ],
         )
       ],
@@ -116,14 +128,17 @@ class _PremiumScreenState extends State<PremiumScreen> {
     );
   }
 
-  Widget _buildTextButton({required String text}) {
-    return SizedBox(
-      height: 40.h,
-      width: 114.w,
-      child: Center(
-        child: Text(
-          text,
-          style: TextStyleHelper.helper2,
+  Widget _buildTextButton({required String text, VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+        height: 40.h,
+        width: 114.w,
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyleHelper.helper2,
+          ),
         ),
       ),
     );
@@ -170,5 +185,11 @@ class _PremiumScreenState extends State<PremiumScreen> {
   _onBuy(BuildContext context) {
     context.read<QuizBloc>().add(BuyPremiumQuizEvent());
     context.go('/settings_screen');
+  }
+
+  Future<void> _launchUrl(String link) async {
+    if (!await launchUrlString(link)) {
+      throw 'Could not launch $link';
+    }
   }
 }

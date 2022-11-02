@@ -27,8 +27,10 @@ class StoreScreen extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          SafeArea(
-            child: _buildBody(),
+          Positioned.fill(
+            child: SafeArea(
+              child: _buildBody(),
+            ),
           ),
         ],
       ),
@@ -106,8 +108,8 @@ class StoreScreen extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
-        width: 343.r,
-        height: 80.r,
+        width: 343.w,
+        height: 80.h,
         decoration: BoxDecoration(
           color: ThemeHelper.blue.withOpacity(0.5),
           borderRadius: BorderRadius.circular(4.r),

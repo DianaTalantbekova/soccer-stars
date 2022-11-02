@@ -14,18 +14,20 @@ class CollectionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ThemeHelper.darkBlue,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: Image.asset(
-                'assets/png/background_image.png',
-                fit: BoxFit.cover,
-              ),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/png/background_image.png',
+              fit: BoxFit.cover,
             ),
-            _buildBody(),
-          ],
-        ),
+          ),
+          Positioned.fill(
+            child: SafeArea(
+              child: _buildBody(),
+            ),
+          ),
+        ],
       ),
     );
   }
